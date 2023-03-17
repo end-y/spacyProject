@@ -1,7 +1,7 @@
-from spacy import load
+import spacy
 from flask import Flask, jsonify
 from urllib.parse import unquote
-nlp = load("en_core_web_sm")
+nlp = spacy.load("en_core_web_sm")
 app = Flask(__name__)
 
 
