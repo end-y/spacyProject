@@ -1,7 +1,7 @@
-import spacy
-from flask import Flask, jsonify
+from spacy import load
+from flask import Flask, request, jsonify
 from urllib.parse import unquote
-nlp = spacy.load("en_core_web_sm")
+nlp = load("en_core_web_sm")
 app = Flask(__name__)
 
 
@@ -31,6 +31,12 @@ def getText(text):
         return jsonify({'data': result_dict}), 200
     else:
         return jsonify({'data': "error"}), 500
+
+@app.route("/root/<word>")
+def getRoot(word):
+    if not word.isspace():
+        doc = nlp(word)
+        return jsonify({"data": doc[0].lemma_}), 200
 
 
 if __name__ == '__main__':
